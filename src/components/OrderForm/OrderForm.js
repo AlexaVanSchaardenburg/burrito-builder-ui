@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { addOrder } from "../../apiCalls";
+// import { addOrder } from "../../apiCalls";
 
-function OrderForm({ setOrders, orders }) {
+function OrderForm({ addToOrders }) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [formError, setFormError] = useState("")
@@ -9,12 +9,7 @@ function OrderForm({ setOrders, orders }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (name.length > 0 && ingredients.length > 0) {
-      addOrder({
-        id: Date.now(),
-        name: name,
-        ingredients: ingredients
-      }).then(res => setOrders([...orders, res]))
-      setFormError("");
+      addToOrders(name, ingredients)
     } else {
       setFormError("Please complete your order")
     }
