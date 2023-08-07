@@ -4,17 +4,23 @@ import { addOrder } from "../../apiCalls";
 function OrderForm(props) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
+  const [formError, setFormError] = useState("")
 
   function handleSubmit(e) {
     e.preventDefault();
-    if(name && ingredients !== []){
+    console.log(name)
+    console.log(ingredients)
+    if (name.length > 0 && ingredients.length > 0) {
       addOrder({
         id: Date.now(),
         name: name,
         ingredients: ingredients
       })
-      clearInputs();
-    } 
+      setFormError("");
+    } else {
+      setFormError("Please complete your order")
+    }
+    clearInputs()
   }
 
   function clearInputs() {
@@ -68,6 +74,7 @@ function OrderForm(props) {
       {ingredientButtons}
 
       <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
+      <p>{formError}</p>
 
       <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
     </form>
