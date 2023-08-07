@@ -1,21 +1,19 @@
 import { useState } from "react";
 import { addOrder } from "../../apiCalls";
 
-function OrderForm(props) {
+function OrderForm({ setOrders, orders }) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [formError, setFormError] = useState("")
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(name)
-    console.log(ingredients)
     if (name.length > 0 && ingredients.length > 0) {
       addOrder({
         id: Date.now(),
         name: name,
         ingredients: ingredients
-      })
+      }).then(res => setOrders([...orders, res]))
       setFormError("");
     } else {
       setFormError("Please complete your order")

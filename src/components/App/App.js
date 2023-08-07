@@ -10,13 +10,13 @@ function App() {
 
   useEffect(() => {
     getOrders().then(res => setOrders(res.orders)).catch((err) => console.error("Error fetching:", err));
-  });
+  }, [orders]);
 
   return (
     <main className="App">
       <header>
         <h1>Burrito Builder</h1>
-        <OrderForm />
+        <OrderForm setOrders={setOrders} orders={orders}/>
       </header>
 
       <Orders orders={orders} />
