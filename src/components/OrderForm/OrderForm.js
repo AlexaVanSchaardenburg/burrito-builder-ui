@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { addOrder } from "../../apiCalls";
 
 function OrderForm(props) {
   const [name, setName] = useState("");
@@ -6,7 +7,14 @@ function OrderForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    clearInputs();
+    if(name && ingredients !== []){
+      addOrder({
+        id: Date.now(),
+        name: name,
+        ingredients: ingredients
+      })
+      clearInputs();
+    } 
   }
 
   function clearInputs() {
