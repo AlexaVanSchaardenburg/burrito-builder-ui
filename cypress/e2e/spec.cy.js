@@ -123,9 +123,11 @@ describe("Burrito Builder", () => {
     cy.wait('@addOrder')
 
     cy.get('section').children().should('have.length', 4)
-    // cy.get('section').children().first().should('have.length', 1)
 
-    //add check that the last card now contains the expected info
+    cy.get('section').children().last().within(($section) => {
+      cy.get('h3').should('have.text', 'Pepper')
+      cy.get('.ingredient-list').children().should('have.length', 3).first().should('have.text', 'beans')
+    })
     
   });
 it("should not allow users to add orders that are missing a name or ingredients", () => {
